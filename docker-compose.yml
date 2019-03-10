@@ -18,11 +18,11 @@ services:
   server:
     image: php:7.3-apache # Apacheを含んだPHPイメージ
     container_name: php
-    working_dir: /home/app/php
+    working_dir: /home/app/server
     ports:
       - 80:80 # 80がPHPのデフォルトポート
     volumes:
-      - /vagrant/app:/home/app
-      - /vagrant/app/public:/var/www/html
+      - /vagrant/server:/home/app/server
+      - /vagrant/client/public:/var/www/html
     depends_on:
       - db
