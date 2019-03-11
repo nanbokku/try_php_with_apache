@@ -1,17 +1,19 @@
-import { TodoView } from './view/todo.jsx';
+import { TodosView } from './view/todos.jsx';
 import React from 'react';
+import ReactDOM from 'react-dom';
 import $ from 'jquery';
 
 window.onload = () => {
-  class App extends React.Component {
-    render() {
-      return <p> Hello React!</p>;
-    }
-  }
-
-  React.render(<App />, document.getElementById('app'));
-  // React.render(
-  //   <TodoView onChecked={() => console.log("checked");} onEdited={()=>console.log("edited");} />,
-  //   $('#todos').get(0)
-  // )
+  ReactDOM.render(
+    <TodosView
+      todos={[{ id: 1, contents: 'hello', isCompleted: false }, { id: 2, isCompleted: false, contents: 'world!' }]}
+      onChecked={(id, checked) => {
+        console.log(id + ', ' + checked);
+      }}
+      onEdited={(id, contents) => {
+        console.log(id + ', ' + contents);
+      }}
+    />,
+    $('#todos').get(0)
+  );
 };
