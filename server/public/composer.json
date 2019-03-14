@@ -1,0 +1,19 @@
+{
+  "name": "nan/server",
+  "authors": [
+    {
+      "name": "nanbokku",
+      "email": "n1510126@edu.cc.uec.ac.jp"
+    }
+  ],
+  "require": {},
+  "require-dev": {
+    "friendsofphp/php-cs-fixer": "^2.14"
+  },
+  "autoload": {
+    "psr-4": {
+      "Todo\\DB\\": "public/db/",
+      "Todo\\Controller\\": "public/controller/"
+    }
+  }
+}

@@ -19,10 +19,12 @@ services:
     image: php:7.3-apache # Apacheを含んだPHPイメージ
     container_name: php
     working_dir: /home/app/server
+    # command: docker-php-ext-install pdo_mysql && a2enmod rewrite
     ports:
       - 80:80 # 80がPHPのデフォルトポート
     volumes:
       - /vagrant/server:/home/app/server
-      - /vagrant/client/public:/var/www/html
+      - /vagrant/server/public:/var/www/html
+      - /vagrant/server/000-default.conf:/etc/apache2/sites-available/000-default.conf
     depends_on:
       - db
