@@ -1,4 +1,4 @@
-### https://raw.github.com/github/gitignore/ea28c14da0faf75047165c10223635ba95566ad7/Global/VisualStudioCode.gitignore
+### https://raw.github.com/github/gitignore/e313e296c1e284d908adcb95bf4f2812617d4de1/Global/VisualStudioCode.gitignore
 
 .vscode/*
 !.vscode/settings.json
@@ -7,7 +7,7 @@
 !.vscode/extensions.json
 
 
-### https://raw.github.com/github/gitignore/ea28c14da0faf75047165c10223635ba95566ad7/Node.gitignore
+### https://raw.github.com/github/gitignore/e313e296c1e284d908adcb95bf4f2812617d4de1/Node.gitignore
 
 # Logs
 logs
@@ -31,7 +31,7 @@ coverage
 # nyc test coverage
 .nyc_output
 
-# Grunt intermediate storage (http://gruntjs.com/creating-plugins#storing-task-files)
+# Grunt intermediate storage (https://gruntjs.com/creating-plugins#storing-task-files)
 .grunt
 
 # Bower dependency directory (https://bower.io/)
@@ -81,10 +81,16 @@ typings/
 .vuepress/dist
 
 # Serverless directories
-.serverless
+.serverless/
+
+# FuseBox cache
+.fusebox/
+
+#DynamoDB Local files 
+.dynamodb/ 
 
 
-### https://raw.github.com/github/gitignore/ea28c14da0faf75047165c10223635ba95566ad7/Global/Vagrant.gitignore
+### https://raw.github.com/github/gitignore/e313e296c1e284d908adcb95bf4f2812617d4de1/Global/Vagrant.gitignore
 
 # General
 .vagrant/
@@ -93,3 +99,4 @@ typings/
 # *.logs
 
 
+vendor/
