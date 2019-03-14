@@ -1,5 +1,8 @@
+import { Reactor } from '../utils/reactor.js';
+
 export class TodosModel {
   constructor() {
+    this.events = new Reactor();
     this.todos = [];
   }
 
@@ -7,6 +10,7 @@ export class TodosModel {
     this.todos.push(todo);
 
     // trigger
+    this.events.dispatchEvent('added', todo);
   }
 
   get(id) {
@@ -19,13 +23,15 @@ export class TodosModel {
     this.todos.splice(index, 1);
 
     // trigger
+    this.events.dispatchEvent('deleted', index);
   }
 
   update(todo) {
     const index = this.findIndex(todo.id);
-    this.todos[index] = todo;
+    this.todos[index] = { ...this.todos[index], ...todo };
 
     // trigger
+    this.events.dispatchEvent('updated', index);
   }
 
   findIndex(id) {

@@ -7,6 +7,16 @@ export class TodosView extends React.Component {
     this.state = {
       todos: this.props.todos,
     };
+
+    this.props.model.addEventListener('added', todo => {
+      this.add(todo.id, todo.contents);
+    });
+    this.props.model.addEventListener('deleted', index => {
+      this.delete(index);
+    });
+    this.props.model.addEventListener('updated', index => {
+      this.update(index, this.props.model[index]);
+    });
   }
 
   render() {
