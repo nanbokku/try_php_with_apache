@@ -1,6 +1,6 @@
 <?php
 
-namespace Todo\DB;
+namespace App\DB;
 
 use PDO;
 

@@ -12,8 +12,9 @@
   },
   "autoload": {
     "psr-4": {
-      "Todo\\DB\\": "public/db/",
-      "Todo\\Controller\\": "public/controller/"
+      "App\\DB\\": "src/db/",
+      "App\\Model\\": "src/model/",
+      "App\\Controller\\": "src/controller/"
     }
   }
 }

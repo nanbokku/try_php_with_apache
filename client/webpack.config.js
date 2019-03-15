@@ -2,10 +2,10 @@ const path = require('path');
 
 module.exports = {
   mode: 'development',
-  entry: './js/index.jsx',
+  entry: './js/index.js',
   output: {
     filename: 'bundle.js',
-    path: path.join(__dirname, '/public/js')
+    path: path.join(__dirname, '/../../server/public/js'),
   },
   module: {
     rules: [
@@ -15,10 +15,13 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-env']
-          }
-        }
-      }
-    ]
-  }
+            presets: ['@babel/preset-env'],
+          },
+        },
+      },
+    ],
+  },
+  externals: {
+    react: 'React',
+  },
 };
