@@ -1,7 +1,9 @@
+import React from 'react'; // webpackによりjsファイルに変換されたときに必要
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import { TodosView } from '../view/todos.jsx';
 import { TodosModel } from '../model/todos.js';
+import { InputView } from '../view/input.jsx';
 
 export class TodoController {
   constructor() {
@@ -16,11 +18,28 @@ export class TodoController {
 
   initialize(todos) {
     ReactDOM.render(
+      <InputView
+        onInputed={text => {
+          $.ajax({
+            method: 'POST',
+            url: '/todo/',
+            data: JSON.stringify({ contents: text }),
+            dataType: 'json',
+            contentType: 'application/json',
+          }).done(res => {
+            this.todosModel.add({ id: res, contents: text, completed: false });
+          });
+        }}
+      />,
+      $('#todo-form').get(0)
+    );
+
+    ReactDOM.render(
       <TodosView
         todos={todos}
         onChecked={(id, checked) => {
           $.ajax({
-            method: 'POST',
+            method: 'PUT',
             url: '/todo/' + id,
             data: JSON.stringify({ completed: checked }),
             dataType: 'json',
@@ -31,7 +50,7 @@ export class TodoController {
         }}
         onEdited={(id, contents) => {
           $.ajax({
-            method: 'POST',
+            method: 'PUT',
             url: '/todo/' + id,
             data: JSON.stringify({ contents: contents }),
             dataType: 'json',
