@@ -23,8 +23,7 @@ services:
     ports:
       - 80:80 # 80がPHPのデフォルトポート
     volumes:
-      - /vagrant/server:/home/app/server
-      - /vagrant/server/public:/var/www/html
-      - /vagrant/server/000-default.conf:/etc/apache2/sites-available/000-default.conf
+      - /vagrant/server:/var/www/html
+      - /vagrant/server/apache2/sites-available:/etc/apache2/sites-available
     depends_on:
       - db
