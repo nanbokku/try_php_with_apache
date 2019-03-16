@@ -5,7 +5,7 @@ module.exports = {
   entry: './js/index.js',
   output: {
     filename: 'bundle.js',
-    path: path.join(__dirname, '/../../server/public/js'),
+    path: path.join(__dirname, '/../server/public/js'),
   },
   module: {
     rules: [
@@ -20,8 +20,5 @@ module.exports = {
         },
       },
     ],
-  },
-  externals: {
-    react: 'React',
   },
 };
