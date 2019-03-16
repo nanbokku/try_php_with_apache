@@ -8,13 +8,13 @@ class TodoModel
 {
     private $pdo;
 
-    function __construct()
+    public function __construct()
     {
         $this->pdo = DBConnection::instance()->get();
     }
 
     // $whereがないときは全てのデータをとってくる
-    function fetch($where = null)
+    public function fetch($where = null)
     {
         $query = 'SELECT * FROM todos';
 
@@ -45,7 +45,7 @@ class TodoModel
         return $data;
     }
 
-    function add($contents)
+    public function add($contents)
     {
         $stmt = $this->pdo->prepare('INSERT INTO todos SET contents=:contents, completed=:completed');
         $stmt->bindValue('contents', $contents, \PDO::PARAM_STR);
@@ -56,7 +56,7 @@ class TodoModel
     }
 
     // id === null のときは全データを変更する
-    function update($id, $params)
+    public function update($id, $params)
     {
         $query = 'UPDATE todos SET ';
         $query .= array_reduce($params, function ($acc, $item) use ($params) {
@@ -65,7 +65,9 @@ class TodoModel
             return $acc . $item . ' = ' . $val;
         }, '');
 
-        if ($id !== null) $query .= ' WHERE id = ' . $id;
+        if ($id !== null) {
+            $query .= ' WHERE id = ' . $id;
+        }
 
         $this->pdo->query($query);
     }

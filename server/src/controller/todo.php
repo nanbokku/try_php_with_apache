@@ -43,7 +43,7 @@ class TodoController
             // GET /todo/:id
             $id = intval($params[0]);
             $this->getbyId($id);
-        } else if ($params[0] === 'all') {
+        } elseif ($params[0] === 'all') {
             // GET /todo/all
             $this->getAll();
         }
@@ -75,8 +75,12 @@ class TodoController
             $completed = $data->completed;
 
             $setArray = []; // set params;
-            if (isset($contents)) $setArray['contents'] = $contents;
-            if (isset($completed)) $setArray['completed'] = $completed;
+            if (isset($contents)) {
+                $setArray['contents'] = $contents;
+            }
+            if (isset($completed)) {
+                $setArray['completed'] = $completed;
+            }
 
             $this->todoModel->update($id, $setArray);
         }

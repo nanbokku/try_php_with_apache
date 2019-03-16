@@ -11,7 +11,8 @@ class DBConnection
     private $pdo;
 
     private function __construct()
-    { }
+    {
+    }
 
     public static function instance()
     {
