@@ -16,14 +16,14 @@ services:
       - /vagrant/mysql/init:/docker-entrypoint-initdb.d # 自動実行してほしいファイルを置いておく
       # 1_XXXX, 2_XXXX, ... の順に実行される
   server:
-    image: php:7.3-apache # Apacheを含んだPHPイメージ
+    build:
+      context: ./server/
+      dockerfile: Dockerfile
     container_name: php
-    working_dir: /home/app/server
-    # command: docker-php-ext-install pdo_mysql && a2enmod rewrite
-    ports:
-      - 80:80 # 80がPHPのデフォルトポート
     volumes:
       - /vagrant/server:/var/www/html
       - /vagrant/server/apache2/sites-available:/etc/apache2/sites-available
+    ports:
+      - 80:80 # 80がPHPのデフォルトポート
     depends_on:
       - db
