@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller;
 
 use App\Model\TodoModel;
@@ -36,12 +38,13 @@ class TodoController
     {
         if (count($params) !== 1) {
             http_response_code(500);
+
             return;
         }
 
-        if (intval($params[0])) {
+        if ((int) ($params[0])) {
             // GET /todo/:id
-            $id = intval($params[0]);
+            $id = (int) ($params[0]);
             $this->getbyId($id);
         } elseif ($params[0] === 'all') {
             // GET /todo/all
@@ -52,7 +55,7 @@ class TodoController
     private function post()
     {
         // postデータ
-        $contents = (string)filter_input(INPUT_POST, 'contents');
+        $contents = (string) filter_input(INPUT_POST, 'contents');
         $id = $this->todoModel->add($contents);
 
         echo $id;   // insertedId
@@ -62,12 +65,13 @@ class TodoController
     {
         if (count($params) !== 1) {
             http_response_code(500);
+
             return;
         }
 
-        if (intval($params[0])) {
+        if ((int) ($params[0])) {
             // PUT /todo/:id
-            $id = intval($params[0]);
+            $id = (int) ($params[0]);
             $data;
             // $dataはstdClassになる
             json_encode(file_get_contents('php://input'), $data);

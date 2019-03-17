@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Model;
 
 use App\DB\DBConnection;
@@ -23,6 +25,7 @@ class TodoModel
             $query .= array_reduce($where, function ($acc, $item) use ($where) {
                 $acc .= $acc === '' ? ' WHERE ' : ' , ';
                 $val = $where[$item];
+
                 return $acc . $item . ' = ' . $val;
             }, '');
         }
@@ -33,9 +36,9 @@ class TodoModel
         foreach ($data as &$row) {
             foreach ($row as $key => &$val) {
                 if ($key === 'id') {
-                    $val = intval($val);
+                    $val = (int) $val;
                 } elseif ($key === 'completed') {
-                    $val = intval($val) === 0 ? false : true;
+                    $val = (int) $val === 0 ? false : true;
                 }
             }
             unset($val);
@@ -62,6 +65,7 @@ class TodoModel
         $query .= array_reduce($params, function ($acc, $item) use ($params) {
             $acc .= $acc === '' ? '' : ', ';
             $val = $params[$item];
+
             return $acc . $item . ' = ' . $val;
         }, '');
 

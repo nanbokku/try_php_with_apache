@@ -1,6 +1,8 @@
 <?php
 
-require_once dirname(__FILE__) . '/../vendor/autoload.php';
+declare(strict_types=1);
+
+require_once __DIR__ . '/../vendor/autoload.php';
 
 // Ajaxから要求されたものなのか調べる
 // Ajax通信するときはヘッダにX-Requested-With: XMLHttpRequestというデータをつけて送ってくる
@@ -17,10 +19,7 @@ if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && (strtolower($_SERVER['HTTP_X_REQ
     array_splice($params, 0, 1);
     $controller->action($params);
 } else {
-    // HTTP 
+    // HTTP
     header('Content-Type:text/html;charset=utf-8');
     readfile(__DIR__ . '/top.html'); // __DIR__ を用いて絶対パスで指定する
 }
-  
- 
-
