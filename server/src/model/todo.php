@@ -62,9 +62,13 @@ class TodoModel
     public function update($id, $params)
     {
         $query = 'UPDATE todos SET ';
-        $query .= array_reduce($params, function ($acc, $item) use ($params) {
+        $query .= array_reduce(array_keys($params), function ($acc, $item) use ($params) {
             $acc .= $acc === '' ? '' : ', ';
-            $val = $params[$item];
+            if ($item === 'contents') {
+                $val = "{$params[$item]}";
+            }elseif ($item === 'completed') {
+                $val = var_export($params[$item], true);
+            }
 
             return $acc . $item . ' = ' . $val;
         }, '');
@@ -72,6 +76,8 @@ class TodoModel
         if ($id !== null) {
             $query .= ' WHERE id = ' . $id;
         }
+
+        var_dump($query);
 
         $this->pdo->query($query);
     }

@@ -24,7 +24,6 @@ export class TodoController {
             method: 'POST',
             url: '/todo/',
             data: JSON.stringify({ contents: text }),
-            dataType: 'json',
             contentType: 'application/json',
           }).done(res => {
             this.todosModel.add({ id: res, contents: text, completed: false });
@@ -37,6 +36,7 @@ export class TodoController {
     ReactDOM.render(
       <TodosView
         todos={todos}
+        model={this.todosModel}
         onChecked={(id, checked) => {
           $.ajax({
             method: 'PUT',
@@ -49,6 +49,7 @@ export class TodoController {
           });
         }}
         onEdited={(id, contents) => {
+          console.log('contents ' + contents);
           $.ajax({
             method: 'PUT',
             url: '/todo/' + id,
@@ -56,6 +57,7 @@ export class TodoController {
             dataType: 'json',
             contentType: 'application/json',
           }).done(res => {
+            console.log(res);
             this.todosModel.update({ id: id, contents: contents });
           });
         }}

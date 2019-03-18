@@ -17,21 +17,8 @@ class TodoController
 
     public function action($params)
     {
-        switch (strtolower($_SERVER['REQUEST_METHOD'])) {
-            case 'get':
-                $this->get($params);
-                break;
-            case 'post':
-                $this->post();
-                break;
-            case 'put':
-                $this->put($params);
-                break;
-            case 'delete':
-            default:
-                parse_str(file_get_contents('php://input'), $parameter);
-                break;
-        }
+        $method = strtolower($_SERVER['REQUEST_METHOD']);
+        $this->$method($params);
     }
 
     private function get($params)
@@ -52,10 +39,11 @@ class TodoController
         }
     }
 
-    private function post()
+    private function post($params)
     {
         // postデータ
-        $contents = (string) filter_input(INPUT_POST, 'contents');
+        $contents = json_decode((string) filter_input(INPUT_POST, 'contents'));
+        echo $contents;
         $id = $this->todoModel->add($contents);
 
         echo $id;   // insertedId
@@ -72,9 +60,8 @@ class TodoController
         if ((int) ($params[0])) {
             // PUT /todo/:id
             $id = (int) ($params[0]);
-            $data;
             // $dataはstdClassになる
-            json_encode(file_get_contents('php://input'), $data);
+            $data = json_decode(file_get_contents('php://input'));
             $contents = $data->contents;
             $completed = $data->completed;
 

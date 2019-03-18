@@ -2,7 +2,11 @@ import React from 'react';
 
 export class InputView extends React.Component {
   constructor(props) {
-    this.input = '';
+    super(props);
+
+    this.state = {
+      input: '',
+    };
   }
 
   render() {
@@ -11,15 +15,16 @@ export class InputView extends React.Component {
         <input type="checkbox" />
         <input
           type="text"
-          value={this.input}
+          value={this.state.input}
+          placeholder={'Enter your task.'}
           onKeyDown={event => {
-            if (event.keyCode === 13 && /\S/g.test(this.input)) {
-              this.props.onInputed(this.input);
-              this.input = '';
+            if (event.keyCode === 13 && /\S/g.test(this.state.input)) {
+              this.props.onInputed(this.state.input);
+              this.setState({ input: '' });
             }
           }}
           onChange={event => {
-            this.input = event.target.value;
+            this.setState({ input: event.target.value });
           }}
         />
       </span>

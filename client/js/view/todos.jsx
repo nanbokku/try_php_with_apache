@@ -4,18 +4,19 @@ import React from 'react';
 export class TodosView extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       todos: this.props.todos,
     };
 
-    this.props.model.addEventListener('added', todo => {
-      this.add(todo.id, todo.contents);
+    this.props.model.events.addEventListener('added', todo => {
+      this.add(todo);
     });
-    this.props.model.addEventListener('deleted', index => {
-      this.delete(index);
+    this.props.model.events.addEventListener('deleted', id => {
+      this.delete(id);
     });
-    this.props.model.addEventListener('updated', index => {
-      this.update(index, this.props.model[index]);
+    this.props.model.events.addEventListener('updated', todo => {
+      this.update(todo);
     });
   }
 
@@ -24,7 +25,7 @@ export class TodosView extends React.Component {
       return (
         <TodoView
           key={todo.id}
-          isCompleted={todo.isCompleted}
+          completed={todo.completed}
           contents={todo.contents}
           id={todo.id}
           onChecked={(id, checked) => {
@@ -40,25 +41,25 @@ export class TodosView extends React.Component {
     return <div>{todoNode}</div>;
   }
 
-  add(id, contents) {
-    this.setState({ todos: this.state.todos.concat({ id: id, contents: contents, isCompleted: false }) });
+  add(todo) {
+    this.setState({
+      todos: this.state.todos.concat(todo),
+    });
   }
 
-  update(index, data) {
-    let updated = {};
-    if ('contents' in data) {
-      updated = { ...updated, contents: data.contents };
-    }
-    if ('isCompleted' in data) {
-      updated = { ...updated, isCompleted: data.isCompleted };
-    }
-
+  update(todo) {
+    const index = this.state.todos.findIndex(todo => {
+      return todo.id === id;
+    });
     const tmp = this.state.todos;
-    tmp[index] = updated;
+    tmp[index] = todo;
     this.setState({ todos: tmp });
   }
 
-  delete(index) {
+  delete(id) {
+    const index = this.state.todos.findIndex(todo => {
+      return todo.id === id;
+    });
     const tmp = this.state.todos;
     tmp.splice(index, 1);
     this.setState({ todos: tmp });

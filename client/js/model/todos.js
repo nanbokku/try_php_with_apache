@@ -23,15 +23,16 @@ export class TodosModel {
     this.todos.splice(index, 1);
 
     // trigger
-    this.events.dispatchEvent('deleted', index);
+    this.events.dispatchEvent('deleted', id);
   }
 
   update(todo) {
+    console.log(todo);
     const index = this.findIndex(todo.id);
     this.todos[index] = { ...this.todos[index], ...todo };
 
     // trigger
-    this.events.dispatchEvent('updated', index);
+    this.events.dispatchEvent('updated', this.todos[index]);
   }
 
   findIndex(id) {
